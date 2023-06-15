@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- 'New' button on the main 'my-memberships' page -->
+<button _="on htmx:afterRequest add .modal-open to #modal"
+        hx-get="/tests" hx-select="#modal-box" hx-target="#modal"
+        class="mx-auto md:ml-2 btn btn-primary btn-square border-none basis-14">New
+</button>
+
+<!-- 'Close' button on the top-right corner of the modal dialog -->
+<button _="on click remove .modal-open from #modal"
+        class="btn btn-sm btn-circle absolute right-2 top-2">✕
+</button>
+
+{% endblock %}

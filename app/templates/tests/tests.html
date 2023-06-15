@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+
+<div>
+    <button class="px-3 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded mb-4"
+    type="submit" hx-post="/tests/create" hx-target="#swapable-content" hx-swap="outerHTML">
+    Create New Test</button>
+</div>
+
+<body>
+    <div class="mx-4">
+
+          <p class="text-2xl font-bold mb-4">Test List</p>
+
+              <table class="min-w-[50%] mb-4">
+                  <thead class="border-b text-lg">
+                          <tr>
+                            <th class="border">Test ID</th>
+                            <th class="border">Category</th>
+                            <th class="border">Vacuum Type</th>
+                            <th class="border">Test Samples</th>
+                            <th class="border">Test Status</th>
+                            <th class="border">Owner</th>
+                            <th class="border">Testers</th>
+                            <th class="border">Requested Date</th>
+                            <th class="border">Due Date</th>
+                            <th class="border">Completed Date</th>
+                            <th class="border">Note</th>
+                          </tr>
+                  </thead>
+                  <tbody class="text-center text-sm" id="Tbody">
+                           {% if tests %}
+                           {% for test in tests %}
+                        <tr>
+                            <td class="border"> {{test.id}} </td>
+                            <td class="border"> {{test.category}} </td>
+                            <td class="border"> {{test.vac_type}} </td>
+                            <td class="border">
+                                {% for vac in test.tested_vacs %}
+                                     <b>INV.{{vac.inv_no}}</b>[{{vac.brand}} {{vac.model_name}}]<br>
+                                {% endfor %}
+                            </td>
+                            <td class="border"> {{test.test_status}}</td>
+                            <td class="border">
+                                {{test.owner_user_rel.full_name}}
+                            <td class="border">
+                                {{test.assigned1_user_rel.full_name}}<br>
+                                {% if test.assigned2_user_rel %}
+                                    / {{test.assigned2_user_rel.full_name}}<br>
+                                {% endif %}
+                            </td>
+                            <td class="border"> {{test.create_date}}</td>
+                            <td class="border"> {{test.due_date}}</td>
+                            <td class="border"> {{test.complete_date}}</td>
+                            <td class="border"> {{test.notes}} </td>
+                        </tr>
+                   {% endfor %}
+                   {% endif %}
+                  </tbody>
+              </table>
+
+
+    </div>
+</body>
+
+{% endblock %}

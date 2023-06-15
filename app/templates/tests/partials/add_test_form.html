@@ -1,0 +1,35 @@
+
+<form hx-post="{{ request.path }}" class="modal-content">
+
+    <div class="modal-header">
+      <h5 class="modal-title">Add Movie</h5>
+    </div>
+    <div class="modal-body">
+
+        <tr>
+          <td class="border">
+              <select name="test-category" id="test-category">
+                  <option value="1">CR</option>
+                  <option value="2">FIELD TEST</option>
+                  <option value="3">REAL-USE</option>
+              </select>
+          </td>
+          <td class="border">
+              <select name="vacuum-type" id="vacuum-type">
+                  <option value="1">CORDLESS</option>
+                  <option value="2">ROBOT</option>
+              </select>
+          <td class="border"> <input type="text" class="form-control" name="test-samples" placeholder="INV" required/> </td>
+          <td class="border"> <input type="text" class="form-control" name="test-status" placeholder="Test Status" required/> </td>
+          <td class="border"> <input type="text" class="form-control" name="owner" placeholder="Owner" required/> </td>
+          <td class="border"> <input type="text" class="form-control" name="testers" placeholder="Tester1" required/> </td>
+          <td class="border"> <input type="text" class="form-control" name="testers" placeholder="Tester2" required/> </td>
+          <td class="border"> <input type="text" class="form-control" name="due-date" placeholder="Due Date" required/> </td>
+          <td class="border"> <input type="text" class="form-control" name="note" placeholder="Note" required/> </td>
+      
+    </div>
+    <div class="modal-footer">
+      <button type="button" data-bs-dismiss="modal">Cancel</button>
+      <button type="submit">Save</button>
+    </div>
+</form>
