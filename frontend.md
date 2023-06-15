@@ -1,5 +1,5 @@
 1. install node.js
-2. npx crate-react frontend
+2. npx create-react-app frontend
 3. cd frontend
 4. npm start
 5. npm install --save react-router-dom
