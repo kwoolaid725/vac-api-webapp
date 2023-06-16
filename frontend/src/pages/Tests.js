@@ -20,10 +20,10 @@ const Tests = () => {
     return (
     <div className='notes'>
         <div className="notes-header">
-            <h2 className="notes-title">&#9782; Notes</h2>
+            <h2 className="notes-title">&#9782; Tests</h2>
             <p className="notes-count">{tests.length}</p>
         </div>
-        <Link to="/tests/add">Add new test</Link>
+
       <div className="notes-list">
             {tests.map((test) => (
                 <ListItem key={test.id} test={test} />
