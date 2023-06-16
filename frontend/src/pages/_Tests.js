@@ -25,6 +25,10 @@ export default function _Tests() {
         <div className="filter-header">
             <h2 className="notes-title">&#9782;Filters</h2>
             <p className="filter-count">{tests2.length}</p>
+            <Link to="/_tests/add" className="floating-button">
+            <AddIcon />
+              </Link>
+
         </div>
         <MDBTable align='middle'>
           <MDBTableHead>
@@ -34,8 +38,8 @@ export default function _Tests() {
                 <th scope='col' >Vacuum Type</th>
                 <th scope='col' >Description</th>
                 <th scope='col' >Test Samples</th>
-                <th scope='col' >Status</th>
                 <th scope='col' >Testers</th>
+                <th scope='col' >Status</th>
                 <th scope='col' >Due Date</th>
                 <th scope='col' >Completion Date</th>
                 {/*<th scope='col'>Last Modified</th>*/}
@@ -74,119 +78,128 @@ export default function _Tests() {
 
                 <container>
                     <div className="row align-items-start">
-                        <div className="col-sm-1" >
+                        <div className="col-md-3" >
                                 <img
                                     src='https://mdbootstrap.com/img/new/avatars/8.jpg'
                                     alt=''
-                                    style={{float:'left', width: '45px', height: '75px' }}
+                                    style={{float:'left', width: '45px', height: '60px' }}
+                                    className="border border-white"
+                                />
+                            1234
+                        </div>
+
+                       <div className="col-md-3" >
+                                <img
+                                    src='https://mdbootstrap.com/img/new/avatars/8.jpg'
+                                    alt=''
+                                    style={{float:'left', width: '45px', height: '60px' }}
+                                    className="border border-white"
+                                />
+                           1234
+                        </div>
+
+                        <div className="col-md-3" >
+                                <img
+                                    src='https://mdbootstrap.com/img/new/avatars/8.jpg'
+                                    alt=''
+                                    style={{float:'left', width: '45px', height: '60px' }}
                                     className="border border-white"
                                 />
                         </div>
 
-                       <div className="col-sm-1" >
+                      <div className="col-md-3" >
                                 <img
                                     src='https://mdbootstrap.com/img/new/avatars/8.jpg'
                                     alt=''
-                                    style={{float:'left', width: '45px', height: '75px' }}
-                                    className="border border-white"
-                                />
-                        </div>
-
-                        <div className="col-sm-1" >
-                                <img
-                                    src='https://mdbootstrap.com/img/new/avatars/8.jpg'
-                                    alt=''
-                                    style={{float:'left', width: '45px', height: '75px' }}
-                                    className="border border-white"
-                                />
-                        </div>
-
-                      <div className="col-sm-1" >
-                                <img
-                                    src='https://mdbootstrap.com/img/new/avatars/8.jpg'
-                                    alt=''
-                                    style={{float:'left', width: '45px', height: '75px' }}
-                                    className="border border-white"
-                                />
-                        </div>
-
-
-                     <div className="col-sm-1" >
-                                <img
-                                    src='https://mdbootstrap.com/img/new/avatars/8.jpg'
-                                    alt=''
-                                    style={{float:'left', width: '45px', height: '75px' }}
-                                    className="border border-white"
-                                />
-                        </div>
-
-                       <div className="col-sm-1" >
-                                <img
-                                    src='https://mdbootstrap.com/img/new/avatars/8.jpg'
-                                    alt=''
-                                    style={{float:'left', width: '45px', height: '75px' }}
+                                    style={{float:'left', width: '45px', height: '60px' }}
                                     className="border border-white"
                                 />
                         </div>
 
 
-                       <div className="col-sm-1" >
+                     <div className="col-md-3" >
                                 <img
                                     src='https://mdbootstrap.com/img/new/avatars/8.jpg'
                                     alt=''
-                                    style={{float:'left', width: '45px', height: '75px' }}
+                                    style={{float:'left', width: '45px', height: '60px' }}
                                     className="border border-white"
                                 />
                         </div>
 
-                      <div className="col-sm-1" >
+                       <div className="col-md-3" >
                                 <img
                                     src='https://mdbootstrap.com/img/new/avatars/8.jpg'
                                     alt=''
-                                    style={{float:'left', width: '45px', height: '75px' }}
+                                    style={{float:'left', width: '45px', height: '60px' }}
                                     className="border border-white"
                                 />
                         </div>
 
-                     <div className="col-sm-1" >
+
+                       <div className="col-md-3" >
                                 <img
                                     src='https://mdbootstrap.com/img/new/avatars/8.jpg'
                                     alt=''
-                                    style={{float:'left', width: '45px', height: '75px' }}
+                                    style={{float:'left', width: '45px', height: '60px' }}
+                                    className="border border-white"
+                                />
+                        </div>
+
+                      <div className="col-md-3" >
+                                <img
+                                    src='https://mdbootstrap.com/img/new/avatars/8.jpg'
+                                    alt=''
+                                    style={{float:'left', width: '45px', height: '60px' }}
+                                    className="border border-white"
+                                />
+                        </div>
+
+                     <div className="col-md-3" >
+                                <img
+                                    src='https://mdbootstrap.com/img/new/avatars/8.jpg'
+                                    alt=''
+                                    style={{float:'left', width: '45px', height: '60px' }}
                                     className="border border-white"
                                 />
                         </div>
                         </div>
                        </container>
 
-                <container>
-                    <div className="row align-items-start">
-                        <div className="col-sm-1" >
-                            <p>1234 </p>
-                        </div>
-                       <div className="col-sm-1" >
-                            <p>1234 </p>
-                        </div>
-                    </div>
-                </container>
+                      </td>
 
-              </td>
-              <td>
-                <MDBBadge color='success' pill>
-                  Active
-                </MDBBadge>
-              </td>
-              <td>Senior</td>
-              <td>
-                <MDBBtn color='link' rounded size='sm'>
-                  Edit
-                </MDBBtn>
-              </td>
+                        <td >
+                            <div className='d-flex align-items-center'>
+                                Aiden Kim
+                                 Ashley Benson
+                            </div>
+                         </td>
+
+                      <td>
+                        <MDBBadge color='success' pill>
+                          Active
+                        </MDBBadge>
+
+
+                      </td>
+                       <td className='align-middle' class="w-50">
+
+                       2023-01-01
+                      </td>
+                          <td>
+
+                        2023-01-01
+                      </td>
+                          <td>
+
+                        <MDBBtn color='link' rounded size='sm'>
+                          Edit
+                        </MDBBtn>
+                      </td>
+
 
             </tr>
 
           ))}
-
 
 
             {/*<tr>*/}

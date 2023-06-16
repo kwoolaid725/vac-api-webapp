@@ -121,11 +121,16 @@ a {
   color: var(--color-main);
   font-size: 24px;
   font-weight: 600;
+
+
 }
 
 .filter-count {
-  font-size: 18px;
+  font-size: 24px;
   color: var(--color-gray);
+  position: absolute;
+  left: 150px;
+  top: 145px;
 }
 
 
@@ -173,7 +178,7 @@ a {
 .floating-button {
   font-size: 48px;
   position: absolute;
-  bottom: 24px;
+  /*bottom: 24px;*/
   right: 16px;
   background: var(--color-main);
   border: none;
