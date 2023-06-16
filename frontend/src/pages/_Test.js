@@ -4,10 +4,10 @@ import { ReactComponent as ArrowLeft } from '../assets/arrow-left.svg'
 import { ReactComponent as SaveIcon } from '../assets/save.svg'
 
 // let dummyData = [{"id":"1", "body":"Get milk" }, {"id":"2", "body":"Wash car" }, {"id":"3", "body":"Start coding"}]
-const Test2 = () => {
+function TestFunction() {
     let params = useParams()
     let navigate = useNavigate()
-    let test2Id = params.id
+    let testId2 = params.id
 
     // let testItem = dummyData.find((test) => test.id === testId)
 
@@ -66,44 +66,18 @@ const Test2 = () => {
     }
 
     return (
-        <div className='note'>
-            <div className='note-header'>
-                <h3>
-                    <Link to="/_tests">
-                        <ArrowLeft />
-                    </Link>
-                </h3>
-                {testId2 !== 'add' && <button onClick={deleteTest}>Delete</button>}
+            <div>
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon1">@</span>
+                    </div>
+                    <input type="text" className="form-control" placeholder="Username" aria-label="Username"
+                           aria-describedby="basic-addon1">
+                    </input>
             </div>
 
-            <textarea onChange={(e) => {
-                setTest2({...test, "category": e.target.value})}} value={test2?.category}
-                      placeholder="Add Category"></textarea>
-            <textarea onChange={(e) => {
-                setTest2({...test, "vac_type": e.target.value})}} value={test2?.vac_type}
-                      placeholder="Add Vac Type..."></textarea>
-            <textarea onChange={(e) => {
-                setTest2({...test, "test_status": e.target.value})}} value={test2?.test_status}
-                      placeholder="Add Test Status..."></textarea>
-            <textarea onChange={(e) => {
-                setTest2({...test, "assigned1": e.target.value})}} value={test2?.assigned1}
-                      placeholder="Add Tester1..."></textarea>
-            <textarea onChange={(e) => {
-                setTest2({...test, "assigned2": e.target.value})}} value={test2?.assigned2}
-                      placeholder="Add Tester2..."></textarea>
-            <textarea onChange={(e) => {
-                setTest2({...test, "due_date": e.target.value})}} value={test2?.due_date}
-                      placeholder="Add Due Date..."></textarea>
-            <textarea onChange={(e) => {
-                setTest2({...test, "complete_date": e.target.value})}} value={test2?.complete_date}
-                      placeholder="Add Completion Date..."></textarea>
-            <textarea onChange={(e) => {
-                setTest2({...test, "notes": e.target.value})}} value={test2?.notes}
-                      placeholder="Add note..."></textarea>
 
-                <div onClick={submitData} className="floating-button"><SaveIcon /></div>
-
-        </div>
     )
 }
-export default Test2
+
+.
