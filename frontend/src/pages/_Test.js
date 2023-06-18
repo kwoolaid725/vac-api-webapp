@@ -1,8 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { useParams, Link, useNavigate} from 'react-router-dom'
+import { MDBCol, MDBFormInline, MDBIcon } from "mdbreact"
 import { ReactComponent as ArrowLeft } from '../assets/arrow-left.svg'
 import { ReactComponent as SaveIcon } from '../assets/save.svg'
 import Test from "./Test";
+import SearchUser from '../components/searchUser'
 import Dropdown from 'react-bootstrap/Dropdown'
 
 // let dummyData = [{"id":"1", "body":"Get milk" }, {"id":"2", "body":"Wash car" }, {"id":"3", "body":"Start coding"}]
@@ -10,6 +12,7 @@ export default function TestFunction() {
     let params = useParams()
     let navigate = useNavigate()
     let testId2 = params.id
+    let userId = params.id
 
 
 
@@ -64,27 +67,66 @@ export default function TestFunction() {
     let deleteTest = async (e) => {
         e.preventDefault()
 
-        await fetch(`http://localhost:8000/_tests/${testId2}`,
+        await fetch(`http://localhost:8000/tests/${testId2}`,
             {method: 'DELETE'})
         navigate('/_tests')
     }
 
 
-    const [setvalue, setValue] = useState("")
+    const [setvalue1, setValue1] = useState("")
+    const ref1 = useRef(null);
 
-    const handleSelect = (e) => {
-        if (e === "") {
-            setValue("")
-        } else {
-            setValue(e)
-        }
+    const testSelect = (e) => {
+        console.log(e)
+        setValue1(e)
+
     }
+
+    const testClear = () => {
+
+       console.log(ref1.current.value)
+       ref1.current.value =""
+    }
+
+    const [setvalue2, setValue2] = useState("")
+    const ref2 = useRef(null);
+
+    const vactypeSelect = (e) => {
+        console.log(e)
+        setValue2(e)
+
+    }
+
+    const vactypeClear = () => {
+
+       console.log(ref2.current.value)
+       ref2.current.value =""
+    }
+
+     let [user, setUser] = useState(null)
+
+
+
+    let getUser = async () => {
+        console.log('Get user triggered')
+        let response = await fetch('http://localhost:8000/users')
+        let data = await response.json()
+        setUser(data)
+    }
+
+    useEffect(() => {
+        getUser()
+        }, [])
+
+
 
 
     const handleInput = (e) => {
         e.persist()
         setTest2({...test2, [e.target.name]: e.target.value});
     }
+
+
 
     return (  <div>
                 <div className="input-group mb-3">
@@ -95,40 +137,62 @@ export default function TestFunction() {
                 </div>
                 <div className="input-group mb-3">
                     <div className="input-group-prepend">
-                        <Dropdown onSelect={handleSelect} >
+                        <Dropdown onSelect={testSelect} >
                           <Dropdown.Toggle variant="success" id="dropdown-basic">
                             Test Category
                           </Dropdown.Toggle>
-
                           <Dropdown.Menu>
                             <Dropdown.Item eventKey="CR">CR</Dropdown.Item>
                             <Dropdown.Item eventKey="Field Test">Field Test</Dropdown.Item>
                             <Dropdown.Item eventKey="Real-Use">Real-Use</Dropdown.Item>
                             <div role="separator" className="dropdown-divider"></div>
-                            <Dropdown.Item eventKey="">Other</Dropdown.Item>
+                            <div className="btn-group">
+                            <Dropdown.Item >
+                                <button type="button" data-display="static" className="btn btn1 w-100" onClick={() => testClear()}>Other</button></Dropdown.Item>
+                            </div>
                           </Dropdown.Menu>
                         </Dropdown>
                     </div>
                     <div>
-
-                        {/*<input value = {setValue()} onChange={handleSelect} />*/}
-                        <input type="text" className="form-control"
+                        <input type="text" className="form-control" ref={ref1}
                                aria-label="Text input with dropdown button" aria-describedby="basic-addon1"
-                              value = {setvalue} />
-                               {/*value={test2?.category} onChange={handleInput} name="category"/>*/}
-
-
-
-
-
+                              value = {setvalue1} />
                     </div>
                 </div>
-                <p>vacuum type</p>
-                 <p>assign to 1</p>
-                 <p>assign to 2</p>
-                 <p>due date</p>
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <Dropdown onSelect={vactypeSelect} id="2">
+                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            Vacuum Type
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu id="2">
+                            <Dropdown.Item eventKey="Cordless">Cordless</Dropdown.Item>
+                            <Dropdown.Item eventKey="Robot">Robot</Dropdown.Item>
+                            <Dropdown.Item eventKey="Mop/WetDry">Mop/WebDry</Dropdown.Item>
+                            <div role="separator" className="dropdown-divider"></div>
+                            <div className="btn-group">
+                            <Dropdown.Item >
+                                <button type="button" data-display="static" className="btn btn1 w-100" onClick={() => vactypeClear()}>Other</button></Dropdown.Item>
+                            </div>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+                    <div>
+                        <input type="text" className="form-control" ref={ref2}
+                               aria-label="Text input with dropdown button" aria-describedby="basic-addon1"
+                              value = {setvalue2} />
+                    </div>
+                </div>
 
-
+                # fetch user data
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon1">Assigned To:</span>
+                    </div>
+                </div>
+            {user.map((user) => (
+                <SearchUser key={user.id} user={user} />
+            ))}
 
 
         </div>

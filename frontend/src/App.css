@@ -253,8 +253,25 @@ a {
   display: none;
 }
 
-figure {
+.figure {
   margin:2px;
   display:inline-block;
   vertical-align:top;
 }
+
+
+.btn.btn1{
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  background-color: var(--color-white);
+}
+
+.btn-group{
+  display: block;
+  width: 100%;
+  margin-inside: 0;
+}
+
+
+
