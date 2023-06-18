@@ -24,6 +24,12 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
         'data': new_user,
         'status': status.HTTP_201_CREATED
     }
+@router.get("/", status_code=status.HTTP_201_CREATED, response_model=List[schemas.UserOut])
+def get_tests(db: Session = Depends(get_db)):
+
+    # print(current_user)
+    users = db.query(models.User).all()
+    return users
 
 @router.get('/{id}', response_model=schemas.UserOut)
 def get_user(id: int, db: Session = Depends(get_db)):

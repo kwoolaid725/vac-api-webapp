@@ -17,7 +17,7 @@ class UserCreate(BaseModel):
     role: str
 
 class UserOut(BaseModel):
-
+    id: int
     email: EmailStr
     full_name: str
     role: str
