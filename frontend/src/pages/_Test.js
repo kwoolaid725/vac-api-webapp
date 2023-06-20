@@ -4,7 +4,7 @@ import { MDBCol, MDBFormInline, MDBIcon } from "mdbreact"
 import { ReactComponent as ArrowLeft } from '../assets/arrow-left.svg'
 import { ReactComponent as SaveIcon } from '../assets/save.svg'
 import Test from "./Test";
-import SearchUser from '../components/searchUser'
+import SearchUser from '../components/SearchUser'
 import Dropdown from 'react-bootstrap/Dropdown'
 
 // let dummyData = [{"id":"1", "body":"Get milk" }, {"id":"2", "body":"Wash car" }, {"id":"3", "body":"Start coding"}]
@@ -103,9 +103,9 @@ export default function TestFunction() {
        ref2.current.value =""
     }
 
-     let [user, setUser] = useState(null)
-
-
+    const [user, setUser] = useState(null)
+    const [users, setUsers] = useState(null);
+    const [setvalue3, setValue3] = useState("")
 
     let getUser = async () => {
         console.log('Get user triggered')
@@ -119,7 +119,27 @@ export default function TestFunction() {
         }, [])
 
 
+    let getUsers = async () => {
+        console.log('Get user triggered')
+        let response = await fetch('http://localhost:8000/users')
+        let data = await response.json()
+        setUsers(data)
+    }
 
+        useEffect(() => {
+            getUsers()
+            }, [])
+
+
+    localStorage.setItem('users', JSON.stringify(users));
+    const items = JSON.parse(localStorage.getItem('users'));
+        console.log("data: ", items)
+
+    const userSelect = (e) => {
+        console.log(e)
+        setValue3(e)
+
+    }
 
     const handleInput = (e) => {
         e.persist()
@@ -128,7 +148,8 @@ export default function TestFunction() {
 
 
 
-    return (  <div>
+    return (
+            <div>
                 <div className="input-group mb-3">
                     <div className="input-group-prepend">
                         <span className="input-group-text" id="basic-addon1">TEST ID:</span>
@@ -184,18 +205,73 @@ export default function TestFunction() {
                     </div>
                 </div>
 
-                # fetch user data
+
                 <div className="input-group mb-3">
                     <div className="input-group-prepend">
                         <span className="input-group-text" id="basic-addon1">Assigned To:</span>
                     </div>
+
                 </div>
-            {user.map((user) => (
-                <SearchUser key={user.id} user={user} />
-            ))}
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon1">Tester 1</span>
+                    </div>
+                    <div>
+                        <SearchUser placeholder="Search for user" data={items} />
+                    </div>
+                     <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon1">Tester 2</span>
+                    </div>
+                    <div>
+                        <SearchUser placeholder="Search for user" data={items} />
+                    </div>
+                </div>
+                <div className="dates-box">
+                    <div className="datetime">
+                        last updated
+                    </div>
+                    <div className="datetime">
+                        due date
+                    </div>
+                    <div className="datetime">
+                        completion date
+                    </div>
+                </div>
+
+                <div className="container">
+                    <div className="subsidiary-test">
+                    adfadfa
+
+                    </div>
+                    checkbox for subsidiary test according to test category and vac type
+                    <ul>
+                    <li>CR - Cordless</li>
+                    CR - Robot
+                    CR - Mop/WetDry
+                    Field Test - Cordless
+                    Field Test - Robot
+                    Field Test - Mop/WetDry
+                    Real-Use - Cordless
+                    Real-Use - Robot
+                    Real-Use - Mop/WetDry
+                    </ul>
+                    <div>
+                        <ul>
+                        <li>Test Category/Vac_Type -> Test_Target_Group -> CR_Corldess_Test_Measure or CR_Robot_Test_Measure or Other</li>
+                        <li>Test Condition</li>
+                        <li>Runs</li>
+                        <li>Sample Inv. </li>
+                        <li>Brush Type (if applicable)</li>
+                        <li>Power Setting</li>
+                        </ul>
 
 
-        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
     )
-
 }
