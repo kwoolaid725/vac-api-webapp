@@ -15,7 +15,7 @@ import TestFunction from './pages/_Test'
 import Layout from './components/Layout'
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import {Container, Navbar} from "react-bootstrap";
-import SearchUser from "./components/searchUser";
+import SearchUser from "./components/SearchUser";
 function App() {
   return (
     <>
