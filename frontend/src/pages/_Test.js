@@ -5,15 +5,15 @@ import { ReactComponent as ArrowLeft } from '../assets/arrow-left.svg'
 import { ReactComponent as SaveIcon } from '../assets/save.svg'
 import Test from "./Test";
 import SearchUser from '../components/SearchUser'
-import SearchVac from '../components/SearchVac'
 import AddDeleteTableRows from '../components/TableRowsTestVac'
 import {vac_items} from '../components/SearchVac'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Table from 'react-bootstrap/Table';
-
+import TestItem from "../components/_TestItem";
+import NewTestId from "../components/TestId";
 
 // let dummyData = [{"id":"1", "body":"Get milk" }, {"id":"2", "body":"Wash car" }, {"id":"3", "body":"Start coding"}]
-export default function TestFunction() {
+export default function TestFunction( test, user) {
     let params = useParams()
     let navigate = useNavigate()
     let testId2 = params.id
@@ -24,6 +24,7 @@ export default function TestFunction() {
     // let testItem = dummyData.find((test) => test.id === testId)
 
     let [test2, setTest2] = useState(null)
+    let [tests, setTests] = useState([])
 
         useEffect(() => {
             if(testId2 !== 'add') getTest()
@@ -37,6 +38,7 @@ export default function TestFunction() {
         let data = await response.json()
         setTest2(data)
     }
+
 
     let submitData = async (e) => {
         e.preventDefault()
@@ -125,24 +127,23 @@ export default function TestFunction() {
 
     localStorage.setItem('users', JSON.stringify(users));
     const items = JSON.parse(localStorage.getItem('users'));
-        console.log("data: ", items)
+        console.log("users: ", items)
 
-    const [vacs, setVacs] = useState(null);
-    let getVacs = async () => {
-        console.log('Get user triggered')
-        let response = await fetch('http://localhost:8000/vacuums')
+    let getTests = async () => {
+        console.log('Get test triggered')
+        let response = await fetch('http://localhost:8000/tests/')
         let data = await response.json()
-        setVacs(data)
+        setTests(data)
     }
 
-      useEffect(() => {
-          getVacs()
-          }, [])
+        useEffect(() => {
+        getTests()
+        }, [])
+
+    const maxId = Math.max.apply(Math, tests.map(function(o) { return o.id; }))
 
 
-    localStorage.setItem('vacs', JSON.stringify(vacs));
-    const vac_items = JSON.parse(localStorage.getItem('vacs'));
-          console.log("data: ", vac_items)
+
 
 
     const handleInput = (e) => {
@@ -160,9 +161,9 @@ export default function TestFunction() {
                             <div className="input-group-prepend">
                                 <span className="input-group-text" id="basic-addon1">TEST ID:</span>
                             </div>
+
                             <div className="col-xs-2">
-                                <input type="text" className="form-control" aria-describedby="basic-addon1" onChange={(e) => {
-                                setTest2({...test2, "id": e.target.value})}} value={test2?.id} placeholder="ID No."/>
+                                <input type="text" className="form-control" aria-describedby="basic-addon1"  value={maxId + 1} placeholder="ID No."/>
                             </div>
                         </div>
 
@@ -174,8 +175,8 @@ export default function TestFunction() {
                                 <span className="input-group-text" id="basic-addon1">DUE DATE:</span>
                             </div>
                             <div className="col-xs-2">
-                                <input type="text" className="form-control" aria-describedby="basic-addon1" onChange={(e) => {
-                                setTest2({...test2, "due_date": e.target.value})}} value={test2?.due_date} placeholder="Enter Due Date"/>
+                                {/*<input type="text" className="form-control" aria-describedby="basic-addon1" onChange={(e) => {*/}
+                                {/*setTests({...tests, "due_date": e.target.value})}} value={tests.category} placeholder="Enter Due Date"/>*/}
                             </div>
                            {/*last updated -----   completion date --------*/}
                         </div>
@@ -256,53 +257,10 @@ export default function TestFunction() {
                     </p>
                     <p className="right">
 
-                        {/*<div className="input-group mb-3">*/}
-                        {/*Test Samples*/}
+                        {/*<AddDeleteTableRows />*/}
 
-                        {/*  <div className="input-group-prepend">*/}
-                        {/*    <SearchVac placeholder="Search for vacuum sample" data={vac_items} />*/}
-                        {/*  </div>*/}
-                        {/*</div>*/}
-
-                        <AddDeleteTableRows />
-
-
-                        {/*<Table striped bordered hover size="sm">*/}
-                        {/*  <thead>*/}
-                        {/*    <tr>*/}
-                        {/*        <th>Table</th>*/}
-                        {/*        <th>INV NO</th>*/}
-                        {/*        <th>Brand</th>*/}
-                        {/*        <th className="th-lg">Model</th>*/}
-                        {/*        <th className="th-sm">Runs</th>*/}
-                        {/*    </tr>*/}
-                        {/*  </thead>*/}
-                        {/*  <tbody>*/}
-                        {/*    <tr>*/}
-                        {/*        <td>*/}
-                        {/*           dsf*/}
-                        {/*        </td>*/}
-                        {/*        <td className="td-sm">*/}
-                        {/*            <input type="text" className="form-control" aria-describedby="basic-addon1" onChange={(e) => {*/}
-                        {/*        setTest2({...test2, "id": e.target.value})}} value={test2?.id} /></td>*/}
-                        {/*        <td>Mark</td>*/}
-                        {/*        <td>Otto</td>*/}
-                        {/*        <td>@mdo</td>*/}
-                        {/*    </tr>*/}
-                        {/*    <tr>*/}
-                        {/*      <td>2</td>*/}
-                        {/*      <td>Jacob</td>*/}
-                        {/*      <td>Thornton</td>*/}
-                        {/*      <td>@fat</td>*/}
-                        {/*    </tr>*/}
-                        {/*    <tr>*/}
-                        {/*      <td>3</td>*/}
-                        {/*      <td colSpan={2}>Larry the Bird</td>*/}
-                        {/*      <td>@twitter</td>*/}
-                        {/*    </tr>*/}
-                        {/*  </tbody>*/}
-
-                        {/*</Table>*/}
+                        {/*<input type="text" name="name" value={inputtestvac.vacuum_inv_no} />*/}
+                        {/*<input type="text" name="name" value={inputtestvac.test_id} />*/}
 
 
                     </p>

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 let getTimestamp = (test2) => {
     return test2.created_at
 }
+
+
 let trimmedContent = (test2) => {
       //Slice content and add three dots in over 45 characters to show there is more
         let content = test2.notes

@@ -1,10 +1,11 @@
-import { useState } from "react"
+import {useEffect, useState} from "react"
 import TableRows from "./TableRows"
+
 import React from "react";
 
 
 
-export default function AddDeleteTableRows({data}){
+export default function AddDeleteTableRows(data){
 
 
     const [rowsData, setRowsData] = useState([]);
@@ -13,28 +14,49 @@ export default function AddDeleteTableRows({data}){
     const addTableRows = ()=>{
 
         const rowsInput={
+            inv_no:'',
             brand:'',
             model_name:'',
-            runs:''
+            runs:'3',
+
         }
         setRowsData([...rowsData, rowsInput])
+        console.log(rowsData)
 
     }
-   const deleteTableRows = (index)=>{
+    const deleteTableRows = (index)=>{
         const rows = [...rowsData];
         rows.splice(index, 1);
         setRowsData(rows);
-   }
+    }
+
+   // const
+
+    const handleChange = (index, e)=>{
+
+        const { name, value } = e.target;
+        const rowsInput = [...rowsData];
+        rowsInput[index][name] = value;
+        setRowsData(rowsInput);
+    }
 
 
-   const handleChange = (index, e)=>{
+    // Query for the table rows
 
-    const { name, value } = e.target;
-    const rowsInput = [...rowsData];
-    rowsInput[index][name] = value;
-    setRowsData(rowsInput);
 
-}
+    const [vacs, setVacs] = useState(null);
+    let getVacs = async () => {
+        console.log('Get user triggered')
+        let response = await fetch('http://localhost:8000/vacuums')
+        let data = await response.json()
+        setVacs(data)
+    }
+
+      useEffect(() => {
+          getVacs()
+          }, [])
+
+
     return(
         <div className="container">
             <div className="row">
