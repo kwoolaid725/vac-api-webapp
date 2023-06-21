@@ -6,7 +6,7 @@ function TableRows({rowsData, deleteTableRows, handleChange}) {
 
     let params = useParams()
     let navigate = useNavigate()
-    let vacInv = params.inv_no
+    const [filteredData, setFilteredData] = useState([]);
 
     let [vacuum, setVacuum] = useState(null)
     let [vacKey, setVacEntered] = useState("");

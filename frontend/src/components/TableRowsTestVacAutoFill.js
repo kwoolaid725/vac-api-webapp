@@ -1,10 +1,9 @@
 import { useState } from "react"
-import TableRows from "./TableRows"
+import AddDeleteTableRow from "./TableRowsTestVac"
 import React from "react";
+import TableRows from "./TableRows";
 
-
-
-export default function AddDeleteTableRows({data}){
+export default function TableRowsTestVacAutoFill({data}){
 
 
     const [rowsData, setRowsData] = useState([]);
@@ -54,7 +53,7 @@ export default function AddDeleteTableRows({data}){
                     </thead>
                    <tbody>
 
-                   <TableRows rowsData={rowsData} deleteTableRows={deleteTableRows} handleChange={handleChange} />
+                   <AddDeleteTableRow data={rowsData} />
 
                    </tbody>
                 </table>
@@ -68,3 +67,4 @@ export default function AddDeleteTableRows({data}){
     )
 
 }
+
