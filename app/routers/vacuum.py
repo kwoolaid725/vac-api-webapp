@@ -11,9 +11,9 @@ router = APIRouter(
 )
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Vacuum)
-def create_vacuum(vacuum: schemas.VacuumCreate, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
-    print(current_user.email)
-    new_vacuum = models.Vacuum(owner_id=current_user.id, **vacuum.dict())
+def create_vacuum(vacuum: schemas.VacuumCreate, db: Session = Depends(get_db) ):
+
+    new_vacuum = models.Vacuum( **vacuum.dict())
     db.add(new_vacuum)
     db.commit()
     db.refresh(new_vacuum)
@@ -31,8 +31,7 @@ def get_vacuum(inv_no: int, db: Session = Depends(get_db), current_user: int = D
     return vacuum
 
 @router.get("/", status_code=status.HTTP_201_CREATED, response_model=List[schemas.Vacuum])
-def get_vacuums(db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
-    print(current_user.email)
+def get_vacuums(db: Session = Depends(get_db)):
     # print(current_user)
     vacuums = db.query(models.Vacuum).all()
     return vacuums

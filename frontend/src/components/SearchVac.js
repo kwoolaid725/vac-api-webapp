@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
-export default function SearchUser({ placeholder, data }) {
+
+
+
+export default function SearchVac({ placeholder, data }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
@@ -9,7 +12,8 @@ export default function SearchUser({ placeholder, data }) {
     const searchWord = e.target.value;
     setWordEntered(searchWord);
     const newFilter = data.filter((value) => {
-      return value.full_name.toLowerCase().includes(searchWord.toLowerCase());
+      return value.brand.toLowerCase().includes(searchWord.toLowerCase()) ||
+             value.model_name.toLowerCase().includes(searchWord.toLowerCase())
     });
 
     if (searchWord === "") {
@@ -28,6 +32,7 @@ export default function SearchUser({ placeholder, data }) {
     setFilteredData([]);
     setWordEntered(e.target.innerText);
   }
+
 
   return (
         <div className="search">
@@ -51,7 +56,7 @@ export default function SearchUser({ placeholder, data }) {
               {filteredData.slice(0, 15).map((value, key) => {
                 return (
                   <a className="dataItem" onClick={searchInput}>
-                    <p>{value.full_name} {value.email} </p>
+                    <p> {value.brand} {value.model_name} : [{value.inv_no}] ({value.type})  </p>
                   </a>
                 );
               })}

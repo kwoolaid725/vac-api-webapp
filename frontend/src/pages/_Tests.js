@@ -74,7 +74,7 @@ export default function _Tests() {
                     </div>
 
                 </td>
-              <td className='align-top' class="w-50" >
+              <td className='align-top w-50'>
 
                 <container>
                     <div className="row align-items-start">
@@ -181,7 +181,7 @@ export default function _Tests() {
 
 
                       </td>
-                       <td className='align-middle' class="w-50">
+                       <td className='align-middle w-50'>
 
                        2023-01-01
                       </td>

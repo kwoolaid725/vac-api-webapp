@@ -2,4 +2,7 @@ npm install --save react-router-dom
 npm install react-bootstrap bootstrap@5.0.0
 npm i mdb-react-ui-kit
 npm i mdbreact
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/icons-material
+npm install @syncfusion/ej2-react-grids --save
 

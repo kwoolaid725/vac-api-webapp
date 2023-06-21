@@ -5,7 +5,12 @@ import { ReactComponent as ArrowLeft } from '../assets/arrow-left.svg'
 import { ReactComponent as SaveIcon } from '../assets/save.svg'
 import Test from "./Test";
 import SearchUser from '../components/SearchUser'
+import SearchVac from '../components/SearchVac'
+import AddDeleteTableRows from '../components/TableRowsTestVac'
+import {vac_items} from '../components/SearchVac'
 import Dropdown from 'react-bootstrap/Dropdown'
+import Table from 'react-bootstrap/Table';
+
 
 // let dummyData = [{"id":"1", "body":"Get milk" }, {"id":"2", "body":"Wash car" }, {"id":"3", "body":"Start coding"}]
 export default function TestFunction() {
@@ -48,6 +53,7 @@ export default function TestFunction() {
             headers: {
                 'Content-Type': 'application/json'
             }, body: JSON.stringify({
+                "id": test2.id,
                 "category": test2.category,
                 "vac_type": test2.vac_type,
                 "test_status": test2.test_status,
@@ -103,21 +109,7 @@ export default function TestFunction() {
        ref2.current.value =""
     }
 
-    const [user, setUser] = useState(null)
     const [users, setUsers] = useState(null);
-    const [setvalue3, setValue3] = useState("")
-
-    let getUser = async () => {
-        console.log('Get user triggered')
-        let response = await fetch('http://localhost:8000/users')
-        let data = await response.json()
-        setUser(data)
-    }
-
-    useEffect(() => {
-        getUser()
-        }, [])
-
 
     let getUsers = async () => {
         console.log('Get user triggered')
@@ -135,11 +127,23 @@ export default function TestFunction() {
     const items = JSON.parse(localStorage.getItem('users'));
         console.log("data: ", items)
 
-    const userSelect = (e) => {
-        console.log(e)
-        setValue3(e)
-
+    const [vacs, setVacs] = useState(null);
+    let getVacs = async () => {
+        console.log('Get user triggered')
+        let response = await fetch('http://localhost:8000/vacuums')
+        let data = await response.json()
+        setVacs(data)
     }
+
+      useEffect(() => {
+          getVacs()
+          }, [])
+
+
+    localStorage.setItem('vacs', JSON.stringify(vacs));
+    const vac_items = JSON.parse(localStorage.getItem('vacs'));
+          console.log("data: ", vac_items)
+
 
     const handleInput = (e) => {
         e.persist()
@@ -150,122 +154,179 @@ export default function TestFunction() {
 
     return (
             <div>
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">TEST ID:</span>
-                    </div>
-                    VAC-0001
-                </div>
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <Dropdown onSelect={testSelect} >
-                          <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Test Category
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item eventKey="CR">CR</Dropdown.Item>
-                            <Dropdown.Item eventKey="Field Test">Field Test</Dropdown.Item>
-                            <Dropdown.Item eventKey="Real-Use">Real-Use</Dropdown.Item>
-                            <div role="separator" className="dropdown-divider"></div>
-                            <div className="btn-group">
-                            <Dropdown.Item >
-                                <button type="button" data-display="static" className="btn btn1 w-100" onClick={() => testClear()}>Other</button></Dropdown.Item>
+                <div className="input-group divider">
+                    <p className="left">
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text" id="basic-addon1">TEST ID:</span>
                             </div>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                    </div>
-                    <div>
-                        <input type="text" className="form-control" ref={ref1}
-                               aria-label="Text input with dropdown button" aria-describedby="basic-addon1"
-                              value = {setvalue1} />
-                    </div>
-                </div>
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <Dropdown onSelect={vactypeSelect} id="2">
-                          <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Vacuum Type
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu id="2">
-                            <Dropdown.Item eventKey="Cordless">Cordless</Dropdown.Item>
-                            <Dropdown.Item eventKey="Robot">Robot</Dropdown.Item>
-                            <Dropdown.Item eventKey="Mop/WetDry">Mop/WebDry</Dropdown.Item>
-                            <div role="separator" className="dropdown-divider"></div>
-                            <div className="btn-group">
-                            <Dropdown.Item >
-                                <button type="button" data-display="static" className="btn btn1 w-100" onClick={() => vactypeClear()}>Other</button></Dropdown.Item>
+                            <div className="col-xs-2">
+                                <input type="text" className="form-control" aria-describedby="basic-addon1" onChange={(e) => {
+                                setTest2({...test2, "id": e.target.value})}} value={test2?.id} placeholder="ID No."/>
                             </div>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                    </div>
-                    <div>
-                        <input type="text" className="form-control" ref={ref2}
-                               aria-label="Text input with dropdown button" aria-describedby="basic-addon1"
-                              value = {setvalue2} />
-                    </div>
-                </div>
+                        </div>
+
+                    </p>
+
+                    <p className="right">
+                       <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text" id="basic-addon1">DUE DATE:</span>
+                            </div>
+                            <div className="col-xs-2">
+                                <input type="text" className="form-control" aria-describedby="basic-addon1" onChange={(e) => {
+                                setTest2({...test2, "due_date": e.target.value})}} value={test2?.due_date} placeholder="Enter Due Date"/>
+                            </div>
+                           {/*last updated -----   completion date --------*/}
+                        </div>
+
+                    </p>
 
 
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Assigned To:</span>
-                    </div>
 
                 </div>
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Tester 1</span>
-                    </div>
-                    <div>
-                        <SearchUser placeholder="Search for user" data={items} />
-                    </div>
-                     <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Tester 2</span>
-                    </div>
-                    <div>
-                        <SearchUser placeholder="Search for user" data={items} />
-                    </div>
+                <div className="input-group divider">
+                    <p className="left">
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <Dropdown onSelect={testSelect} >
+                                  <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    Test Category
+                                  </Dropdown.Toggle>
+                                  <Dropdown.Menu>
+                                    <Dropdown.Item eventKey="CR">CR</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Field Test">Field Test</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Real-Use">Real-Use</Dropdown.Item>
+                                    <div role="separator" className="dropdown-divider"></div>
+                                    <div className="btn-group">
+                                    <Dropdown.Item >
+                                        <button type="button" data-display="static" className="btn btn1 w-100" onClick={() => testClear()}>Other</button></Dropdown.Item>
+                                    </div>
+                                  </Dropdown.Menu>
+                                </Dropdown>
+                            </div>
+                            <div>
+                                <input type="text" className="form-control" ref={ref1}
+                                       aria-label="Text input with dropdown button" aria-describedby="basic-addon1"
+                                      value = {setvalue1} />
+                            </div>
+                        </div>
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <Dropdown onSelect={vactypeSelect} id="2">
+                                  <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    Vacuum Type
+                                  </Dropdown.Toggle>
+                                  <Dropdown.Menu id="2">
+                                    <Dropdown.Item eventKey="Cordless">Cordless</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Robot">Robot</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Mop/WetDry">Mop/WebDry</Dropdown.Item>
+                                    <div role="separator" className="dropdown-divider"></div>
+                                    <div className="btn-group">
+                                    <Dropdown.Item >
+                                        <button type="button" data-display="static" className="btn btn1 w-100" onClick={() => vactypeClear()}>Other</button></Dropdown.Item>
+                                    </div>
+                                  </Dropdown.Menu>
+                                </Dropdown>
+                            </div>
+                            <div>
+                                <input type="text" className="form-control" ref={ref2}
+                                       aria-label="Text input with dropdown button" aria-describedby="basic-addon1"
+                                      value = {setvalue2} />
+                            </div>
+                        </div>
+
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text" id="basic-addon1">Tester 1</span>
+                            </div>
+                             <div>
+                            <SearchUser placeholder="Search for user" data={items} />
+                            </div>
+                        </div>
+
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text" id="basic-addon1">Tester 2</span>
+                            </div>
+                            <div>
+                                <SearchUser placeholder="Search for user" data={items} />
+                            </div>
+                        </div>
+                    </p>
+                    <p className="right">
+
+                        {/*<div className="input-group mb-3">*/}
+                        {/*Test Samples*/}
+
+                        {/*  <div className="input-group-prepend">*/}
+                        {/*    <SearchVac placeholder="Search for vacuum sample" data={vac_items} />*/}
+                        {/*  </div>*/}
+                        {/*</div>*/}
+
+                        <AddDeleteTableRows />
+
+
+                        {/*<Table striped bordered hover size="sm">*/}
+                        {/*  <thead>*/}
+                        {/*    <tr>*/}
+                        {/*        <th>Table</th>*/}
+                        {/*        <th>INV NO</th>*/}
+                        {/*        <th>Brand</th>*/}
+                        {/*        <th className="th-lg">Model</th>*/}
+                        {/*        <th className="th-sm">Runs</th>*/}
+                        {/*    </tr>*/}
+                        {/*  </thead>*/}
+                        {/*  <tbody>*/}
+                        {/*    <tr>*/}
+                        {/*        <td>*/}
+                        {/*           dsf*/}
+                        {/*        </td>*/}
+                        {/*        <td className="td-sm">*/}
+                        {/*            <input type="text" className="form-control" aria-describedby="basic-addon1" onChange={(e) => {*/}
+                        {/*        setTest2({...test2, "id": e.target.value})}} value={test2?.id} /></td>*/}
+                        {/*        <td>Mark</td>*/}
+                        {/*        <td>Otto</td>*/}
+                        {/*        <td>@mdo</td>*/}
+                        {/*    </tr>*/}
+                        {/*    <tr>*/}
+                        {/*      <td>2</td>*/}
+                        {/*      <td>Jacob</td>*/}
+                        {/*      <td>Thornton</td>*/}
+                        {/*      <td>@fat</td>*/}
+                        {/*    </tr>*/}
+                        {/*    <tr>*/}
+                        {/*      <td>3</td>*/}
+                        {/*      <td colSpan={2}>Larry the Bird</td>*/}
+                        {/*      <td>@twitter</td>*/}
+                        {/*    </tr>*/}
+                        {/*  </tbody>*/}
+
+                        {/*</Table>*/}
+
+
+                    </p>
                 </div>
-                <div className="dates-box">
-                    <div className="datetime">
-                        last updated
-                    </div>
-                    <div className="datetime">
-                        due date
-                    </div>
-                    <div className="datetime">
-                        completion date
-                    </div>
-                </div>
+
+                <button type="button" data-display="static" className="btn btn1 w-100" onClick={() => testClear()}>Other</button>
 
                 <div className="container">
                     <div className="subsidiary-test">
-                    adfadfa
 
                     </div>
                     checkbox for subsidiary test according to test category and vac type
                     <ul>
-                    <li>CR - Cordless</li>
-                    CR - Robot
-                    CR - Mop/WetDry
-                    Field Test - Cordless
-                    Field Test - Robot
-                    Field Test - Mop/WetDry
-                    Real-Use - Cordless
-                    Real-Use - Robot
-                    Real-Use - Mop/WetDry
+                    <li><h1>CR - Cordless</h1></li>
                     </ul>
                     <div>
                         <ul>
-                        <li>Test Category/Vac_Type -> Test_Target_Group -> CR_Corldess_Test_Measure or CR_Robot_Test_Measure or Other</li>
+                        <li>Vacuums</li>
                         <li>Test Condition</li>
                         <li>Runs</li>
                         <li>Sample Inv. </li>
                         <li>Brush Type (if applicable)</li>
                         <li>Power Setting</li>
                         </ul>
-
-
 
 
                     </div>
