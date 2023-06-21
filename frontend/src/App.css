@@ -388,3 +388,8 @@ float: right; }
 .td-sm {
   width: 10%;
 }
+
+.unselectable {
+   background-color: #ddd;
+   cursor: not-allowed;
+}

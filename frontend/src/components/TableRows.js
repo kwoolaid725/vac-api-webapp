@@ -1,56 +1,41 @@
 import {useState, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 
-function TableRows({rowsData, deleteTableRows, handleChange}) {
 
-    let params = useParams()
-    let navigate = useNavigate()
-
-    let [vacuum, setVacuum] = useState(null)
-    let [vacKey, setVacEntered] = useState("");
-
-       useEffect(() => {
-        getVacuum()
-        }, [])
-
-    let getVacuum = async () => {
-        console.log('Get vacuum triggered')
-
-        // let response = await fetch(`http://localhost:8000/vacuums/${vacInv}`)
-        let response = await fetch('http://localhost:8000/vacuums/')
-        let data = await response.json()
-        setVacuum(data)
-    }
-
-    const [filteredData, setFilteredData] = useState([]);
-
+function TableRows({rowsData, deleteTableRows, handleChange, handleQuery}) {
 
 
 
     return(
 
-        vacuum && (
-        rowsData.map((vacuum, index)=>{
-            // const {inv_no, brand, model_name, runs}= data;
+        rowsData.map((data, index)=>{
+            const {inv_no, brand, model_name, runs}= data;
             return(
 
                 <tr key={index}>
                  <td>
                     {index+1}
                 </td>
-                <td>
-                 <input type="text" value={vacuum.inv_no} onChange={(e)=>(handleChange(index, e))} name="inv_no" className="form-control"/>
-                </td>
-                <td>
-                    <input key = {vacuum.inv_no} type="text" value={vacuum.brand}  onChange={(e)=>(handleChange(index, e))} name="brand" className="form-control"/> </td>
-                {/*<td><input type="text" value={model_name}  onChange={(e)=>(handleChange(index, e))} name="model_name" className="form-control" /> </td>*/}
-                {/*<td><input type="text" value={runs}  onChange={(e)=>(handleChange(index, e))} name="runs" className="form-control" /> </td>*/}
-                <td><button className="btn btn-outline-danger" onClick={()=>(deleteTableRows(index))}>x</button></td>
+
+                    <td>
+                        <Form>
+                            <InputGroup>
+                                <Form.Control value={inv_no} onChange={(e)=>(handleChange(index, e))} name="inv_no"  className="w-100" />
+                            </InputGroup>
+                        </Form>
+                    </td>
+
+                <td><input type="text" value={brand}   name="brand" className="form-control" disabled/> </td>
+                <td><input type="text" value={model_name}   name="model_name" className="form-control" disabled/> </td>
+                <td><input type="text" value={runs}  onChange={(e)=>(handleChange(index, e))} name="runs" className="form-control" /> </td>
+                <td><button className="btn btn-outline-danger" onClick={()=>(deleteTableRows(index))}>c</button></td>
             </tr>
 
             )
-        }))
+        })
 
 
     )

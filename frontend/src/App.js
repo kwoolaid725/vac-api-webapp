@@ -13,6 +13,7 @@ import Vacuums from './pages/Vacuums'
 import _Tests from './pages/_Tests'
 import TestFunction from './pages/_Test'
 import Layout from './components/Layout'
+import Testing from './components/testing'
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import {Container, Navbar} from "react-bootstrap";
 import SearchUser from "./components/SearchUser";
@@ -29,7 +30,7 @@ function App() {
                     <Route path="/vacuums" element={<Vacuums/>}  />
                     <Route path="/_tests" element={<_Tests/>}  />
                     <Route path="/_tests/:id" element={<TestFunction/>}  />
-                    <Route path="/testing" element={<AddDeleteTableRows/>}  />
+                    <Route path="/testing" element={<Testing/>}  />
 
                 </Routes>
             </Layout>
