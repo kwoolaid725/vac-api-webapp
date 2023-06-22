@@ -142,9 +142,27 @@ export default function TestFunction( test, user) {
 
     const maxId = Math.max.apply(Math, tests.map(function(o) { return o.id; }))
 
+    const [vactest, setVactest] = useState({
+        test_id: "",
+        vacuum_inv_no: ""
+
+        }
+    );
+
+    const handleVactestInput = (e) => {
+        e.persist()
+        setVactest({...vactest, [e.target.name]: e.target.value});
+
+    }
+     console.log("vactest: ", vactest)
 
 
+    const copyTestId = useRef(null);
 
+
+    const handleTestidBlur = (e) => {
+        copyTestId.current.value = maxId + 1
+    }
 
     const handleInput = (e) => {
         e.persist()
@@ -163,7 +181,9 @@ export default function TestFunction( test, user) {
                             </div>
 
                             <div className="col-xs-2">
-                                <input type="text" className="form-control" aria-describedby="basic-addon1"  value={maxId + 1} placeholder="ID No."/>
+                                <input type="text" className="form-control" name="test_id" aria-describedby="basic-addon1" value={maxId + 1}
+                                 onBlur={handleTestidBlur}/>
+
                             </div>
                         </div>
 
@@ -182,8 +202,6 @@ export default function TestFunction( test, user) {
                         </div>
 
                     </p>
-
-
 
                 </div>
                 <div className="input-group divider">
@@ -259,8 +277,10 @@ export default function TestFunction( test, user) {
 
                         {/*<AddDeleteTableRows />*/}
 
-                        {/*<input type="text" name="name" value={inputtestvac.vacuum_inv_no} />*/}
-                        {/*<input type="text" name="name" value={inputtestvac.test_id} />*/}
+                        {/*<input type="text" name="test_id" value={vactest.test_id} onChange={handleVactestInput} />*/}
+                        <input type="text"  name="test_id" aria-describedby="basic-addon1" value={vactest.test_id} onClick={handleVactestInput}
+                            ref={copyTestId} />
+                        <input type="text" name="vacuum_inv_no" value={vactest.vacuum_inv_no} onChange={handleVactestInput} />
 
 
                     </p>
