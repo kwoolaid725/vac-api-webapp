@@ -7,7 +7,7 @@ import { ReactComponent as AddIcon } from '../assets/add.svg'
 
 
 export default function _Tests() {
-  let [tests2, setTests2] = useState([])
+  let [tests, setTests] = useState([])
 
     useEffect(() => {
         getTests()
@@ -16,7 +16,7 @@ export default function _Tests() {
     let getTests = async () => {
         let response = await fetch('http://localhost:8000/tests')
         let data = await response.json()
-        setTests2(data)
+        setTests(data)
     }
 
   return (
@@ -24,7 +24,7 @@ export default function _Tests() {
     <div className='tests'>
         <div className="filter-header">
             <h2 className="notes-title">&#9782;Filters</h2>
-            <p className="filter-count">{tests2.length}</p>
+            <p className="filter-count">{tests.length}</p>
             <Link to="/_tests/add" className="floating-button">
             <AddIcon />
               </Link>
@@ -47,30 +47,30 @@ export default function _Tests() {
             </tr>
           </MDBTableHead>
           <MDBTableBody>
-          {tests2.map((test2) => (
+          {tests.map((test) => (
             <tr>
                 <td>
-                    <Link to={`/_tests/${test2.id}`}>
+                    <Link to={`/_tests/${test.id}`}>
                         <div className='d-flex align-items-center'>
-                            {test2.id}
+                            {test.id}
                         </div>
                     </Link>
                 </td>
                 <td>
                     <div className='d-flex align-items-center'>
-                        {test2.category}
+                        {test.category}
                     </div>
                 </td>
                 <td>
                     <div className='d-flex align-items-center'>
-                      {test2.vac_type}
-                    {/*<TestItem key={test2.id} test2={test2} />*/}
+                      {test.vac_type}
+
                     </div>
                 </td>
                 <td class="w-25" >
                     <div className='d-flex align-items-center'>
 
-                    <TestItem key={test2.id} test2={test2} />
+                    <TestItem key={test.id} test={test} />
                     </div>
 
                 </td>

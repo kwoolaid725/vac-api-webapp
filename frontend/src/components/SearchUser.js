@@ -26,7 +26,7 @@ export default function SearchUser({ placeholder, data }) {
 
   const searchInput = (e) => {
     setFilteredData([]);
-    setWordEntered(e.target.innerText);
+    setWordEntered(e.target.innerText[0]);
   }
 
   return (
@@ -51,7 +51,7 @@ export default function SearchUser({ placeholder, data }) {
               {filteredData.slice(0, 15).map((value, key) => {
                 return (
                   <a className="dataItem" onClick={searchInput}>
-                    <p>{value.full_name} {value.email} </p>
+                    <p>{value.id} {value.full_name} {value.email} </p>
                   </a>
                 );
               })}
