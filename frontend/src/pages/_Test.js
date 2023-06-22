@@ -1,6 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { useParams, Link, useNavigate} from 'react-router-dom'
-import { MDBCol, MDBFormInline, MDBIcon } from "mdbreact"
+import {  MDBFormInline, MDBIcon } from "mdbreact"
+import { MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import { Textarea } from "@material-tailwind/react";
+
 import { ReactComponent as ArrowLeft } from '../assets/arrow-left.svg'
 import { ReactComponent as SaveIcon } from '../assets/save.svg'
 import Test from "./Test";
@@ -13,30 +16,30 @@ import TestItem from "../components/_TestItem";
 import NewTestId from "../components/TestId";
 
 // let dummyData = [{"id":"1", "body":"Get milk" }, {"id":"2", "body":"Wash car" }, {"id":"3", "body":"Start coding"}]
-export default function TestFunction( test, user) {
+export default function TestFunction( ) {
     let params = useParams()
     let navigate = useNavigate()
-    let testId2 = params.id
+    let testId = params.id
     let userId = params.id
 
 
 
     // let testItem = dummyData.find((test) => test.id === testId)
 
-    let [test2, setTest2] = useState(null)
+    let [test, setTest] = useState(null)
     let [tests, setTests] = useState([])
 
         useEffect(() => {
-            if(testId2 !== 'add') getTest()
-            }, [testId2])
+            if(testId !== 'add') getTest()
+            }, [testId])
 
 
     let getTest = async () => {
         console.log('Get test triggered')
-        console.log(testId2)
-        let response = await fetch(`http://localhost:8000/tests/${testId2}`)
+        console.log(testId)
+        let response = await fetch(`http://localhost:8000/tests/${testId}`)
         let data = await response.json()
-        setTest2(data)
+        setTest(data)
     }
 
 
@@ -45,8 +48,8 @@ export default function TestFunction( test, user) {
         let url = 'http://localhost:8000/tests'
         let method = 'POST'
 
-        if (testId2 !== 'add') {
-            url = `http://localhost:8000/tests/${testId2}`
+        if (testId !== 'add') {
+            url = `http://localhost:8000/tests/${testId}`
             method = 'PUT'
         }
 
@@ -55,29 +58,28 @@ export default function TestFunction( test, user) {
             headers: {
                 'Content-Type': 'application/json'
             }, body: JSON.stringify({
-                "id": test2.id,
-                "category": test2.category,
-                "vac_type": test2.vac_type,
-                "test_status": test2.test_status,
-                "assigned1": test2.assigned1,
-                "assigned2": test2.assigned2,
-                "due_date": test2.due_date,
-                "complete_date": test2.complete_date,
-                "notes": test2.notes,
+                "id": test.id,
+                "category": test.category,
+                "vac_type": test.vac_type,
+                "test_status": test.test_status,
+                "assigned1": test.assigned1,
+                // "assigned2": test.assigned2,
+                "due_date": test.due_date,
+                "notes": test.notes,
 
             })
         })
 
-        navigate('/_tests')
+        // navigate('/_tests')
 
         }
 
     let deleteTest = async (e) => {
         e.preventDefault()
 
-        await fetch(`http://localhost:8000/tests/${testId2}`,
+        await fetch(`http://localhost:8000/tests/${testId}`,
             {method: 'DELETE'})
-        navigate('/_tests')
+        // navigate('/_tests')
     }
 
 
@@ -127,7 +129,7 @@ export default function TestFunction( test, user) {
 
     localStorage.setItem('users', JSON.stringify(users));
     const items = JSON.parse(localStorage.getItem('users'));
-        console.log("users: ", items)
+        // console.log("users: ", items)
 
     let getTests = async () => {
         console.log('Get test triggered')
@@ -142,31 +144,50 @@ export default function TestFunction( test, user) {
 
     const maxId = Math.max.apply(Math, tests.map(function(o) { return o.id; }))
 
+    const [inputVacarr, setInputVacarr] = useState([]);
+
+
     const [vactest, setVactest] = useState({
         test_id: "",
         vacuum_inv_no: ""
-
         }
     );
 
-    const handleVactestInput = (e) => {
-        e.persist()
-        setVactest({...vactest, [e.target.name]: e.target.value});
-
-    }
-     console.log("vactest: ", vactest)
-
-
     const copyTestId = useRef(null);
-
-
     const handleTestidBlur = (e) => {
         copyTestId.current.value = maxId + 1
     }
 
+
+
+    function handleVactestInput(e) {
+        e.persist()
+        setVactest({...vactest, [e.target.name]: e.target.value});
+
+    }
+
+    let {test_id, vacuum_inv_no} = vactest;
+    function changeVacTest(e) {
+        setInputVacarr([...inputVacarr,{test_id, vacuum_inv_no}])
+
+        console.log("vactest: ", vactest)
+        setVactest({
+            test_id: "",
+            vacuum_inv_no: ""
+            }
+        );
+    }
+
+    function changeVacTest2(e) {
+        setInputVacarr([...inputVacarr,{test_id, vacuum_inv_no}])
+        console.log(inputVacarr)
+    }
+
+
+
     const handleInput = (e) => {
         e.persist()
-        setTest2({...test2, [e.target.name]: e.target.value});
+        setTest({...test, [e.target.name]: e.target.value});
     }
 
 
@@ -181,12 +202,20 @@ export default function TestFunction( test, user) {
                             </div>
 
                             <div className="col-xs-2">
-                                <input type="text" className="form-control" name="test_id" aria-describedby="basic-addon1" value={maxId + 1}
-                                 onBlur={handleTestidBlur}/>
+                                {/*<input type="text" className="form-control" name="id" aria-describedby="basic-addon1" value={maxId + 1} onChange={handleInput}/>*/}
+                                 {/*// onBlur={handleTestidBlur}/>*/}
+                                <input type="text" className="form-control" name="id" aria-describedby="basic-addon1" value={test?.id} onChange={handleInput}/>
 
                             </div>
                         </div>
-
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                    <span className="input-group-text" id="basic-addon1">Test Status:</span>
+                            </div>
+                             <div className="col-xs-2">
+                                <input type="text" onChange={handleInput} value={test?.test_status} name="test_status" placeholder="Add Test Status..."></input>
+                             </div>
+                        </div>
                     </p>
 
                     <p className="right">
@@ -195,13 +224,12 @@ export default function TestFunction( test, user) {
                                 <span className="input-group-text" id="basic-addon1">DUE DATE:</span>
                             </div>
                             <div className="col-xs-2">
-                                {/*<input type="text" className="form-control" aria-describedby="basic-addon1" onChange={(e) => {*/}
-                                {/*setTests({...tests, "due_date": e.target.value})}} value={tests.category} placeholder="Enter Due Date"/>*/}
+                                <input type="date" className="form-control" aria-describedby="basic-addon1" onChange={handleInput} value={test?.due_date} placeholder="Enter Due Date"/>
                             </div>
                            {/*last updated -----   completion date --------*/}
                         </div>
-
                     </p>
+
 
                 </div>
                 <div className="input-group divider">
@@ -225,9 +253,13 @@ export default function TestFunction( test, user) {
                                 </Dropdown>
                             </div>
                             <div>
-                                <input type="text" className="form-control" ref={ref1}
+                                {/*<input type="text" className="form-control" ref={ref1}*/}
+                                {/*       aria-label="Text input with dropdown button" aria-describedby="basic-addon1"*/}
+                                {/*      value = {setvalue1} name="category" onChange={handleInput}/>*/}
+
+                                <input type="text" className="form-control"
                                        aria-label="Text input with dropdown button" aria-describedby="basic-addon1"
-                                      value = {setvalue1} />
+                                      value = {test?.category} name="category" onChange={handleInput}/>
                             </div>
                         </div>
                         <div className="input-group mb-3">
@@ -249,9 +281,13 @@ export default function TestFunction( test, user) {
                                 </Dropdown>
                             </div>
                             <div>
-                                <input type="text" className="form-control" ref={ref2}
+                                {/*<input type="text" className="form-control" ref={ref2}*/}
+                                {/*       aria-label="Text input with dropdown button" aria-describedby="basic-addon1"*/}
+                                {/*      value = {setvalue2} name="vac_type" onChange={handleInput}/>*/}
+
+                                <input type="text" className="form-control"
                                        aria-label="Text input with dropdown button" aria-describedby="basic-addon1"
-                                      value = {setvalue2} />
+                                      value = {test?.vac_type} name="vac_type" onChange={handleInput}/>
                             </div>
                         </div>
 
@@ -260,7 +296,11 @@ export default function TestFunction( test, user) {
                                 <span className="input-group-text" id="basic-addon1">Tester 1</span>
                             </div>
                              <div>
-                            <SearchUser placeholder="Search for user" data={items} />
+                            {/*<SearchUser placeholder="Search for user" name="assigned1" data={items} onChange={handleInput} />*/}
+
+                                 <input type="text" className="form-control"
+                                       aria-label="Text input with dropdown button" aria-describedby="basic-addon1"
+                                      value = {test?.assigned1} name="assigned1" onChange={handleInput}/>
                             </div>
                         </div>
 
@@ -274,16 +314,54 @@ export default function TestFunction( test, user) {
                         </div>
                     </p>
                     <p className="right">
+                         <div className="relative w-[32rem]">
+                               <Textarea variant="static" onChange={handleInput} name='notes' value={test?.notes} placeholder="Add note..." />
+                           </div>
 
-                        {/*<AddDeleteTableRows />*/}
+                        <div onClick={submitData} className="floating-button"><SaveIcon /></div>
 
-                        {/*<input type="text" name="test_id" value={vactest.test_id} onChange={handleVactestInput} />*/}
-                        <input type="text"  name="test_id" aria-describedby="basic-addon1" value={vactest.test_id} onClick={handleVactestInput}
-                            ref={copyTestId} />
-                        <input type="text" name="vacuum_inv_no" value={vactest.vacuum_inv_no} onChange={handleVactestInput} />
 
+
+                    {/*    <AddDeleteTableRows />*/}
+
+                    {/*    /!*<input type="text" name="test_id" value={vactest.test_id} onChange={handleVactestInput} />*!/*/}
+                    {/*    <MDBContainer>*/}
+                    {/*        <MDBRow>*/}
+                    {/*            <MDBCol size='sm'>*/}
+                    {/*    <input type="text"  name="vacuum_inv_no" value={vactest.vacuum_inv_no} onChange={handleVactestInput} />*/}
+                    {/*    <input type="text"  name="test_id"  value={vactest.test_id} onClick={handleVactestInput}*/}
+                    {/*        ref={copyTestId} />*/}
+                    {/*            </MDBCol>*/}
+                    {/*        </MDBRow>*/}
+                    {/*    </MDBContainer>*/}
+                    {/*    <button onClick={changeVacTest}> Add </button>*/}
+                    {/*    <button onClick={changeVacTest2}> Check Array in Console </button>*/}
+
+                    {/*    <table border={1} cellPadding={10} >*/}
+                    {/*        <tbody>*/}
+                    {/*        <tr>*/}
+                    {/*            <th>Inv No.</th>*/}
+                    {/*            <th>Test Id</th>*/}
+                    {/*        </tr>*/}
+                    {/*        <tr>*/}
+                    {/*            {*/}
+                    {/*                inputVacarr.map(*/}
+                    {/*                    (info,index) => {*/}
+                    {/*                        return(*/}
+                    {/*                            <tr key={index}>*/}
+                    {/*                                <td>{info.vacuum_inv_no}</td>*/}
+                    {/*                                <td>{info.test_id}</td>*/}
+                    {/*                            </tr>*/}
+                    {/*                        )*/}
+                    {/*                    }*/}
+                    {/*                )*/}
+                    {/*            }*/}
+                    {/*        </tr>*/}
+                    {/*    </tbody>*/}
+                    {/*    </table>*/}
 
                     </p>
+
                 </div>
 
                 <button type="button" data-display="static" className="btn btn1 w-100" onClick={() => testClear()}>Other</button>
@@ -291,20 +369,7 @@ export default function TestFunction( test, user) {
                 <div className="container">
                     <div className="subsidiary-test">
 
-                    </div>
-                    checkbox for subsidiary test according to test category and vac type
-                    <ul>
-                    <li><h1>CR - Cordless</h1></li>
-                    </ul>
-                    <div>
-                        <ul>
-                        <li>Vacuums</li>
-                        <li>Test Condition</li>
-                        <li>Runs</li>
-                        <li>Sample Inv. </li>
-                        <li>Brush Type (if applicable)</li>
-                        <li>Power Setting</li>
-                        </ul>
+
 
 
                     </div>

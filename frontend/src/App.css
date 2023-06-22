@@ -289,7 +289,7 @@ a {
 .searchIcon {
   height: 30px;
   width: 30px;
-  background-color: gray;
+  background-color: white;
   display: grid;
   place-items: center;
   border: 0;
@@ -347,7 +347,7 @@ a:hover {
   border-radius: 10px;
   padding: 0 0px;
   /*box-shadow: 0px 0px 8px #ddd;*/
-  background-color: black;
+  background-color: white;
   display: flex;
   align-items: center;
 }
@@ -394,12 +394,25 @@ float: right; }
    cursor: not-allowed;
 }
 
-
 input{
   border: none;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
   font-size: 1.2rem;
   padding: 10px;
   margin: 20px;
   border-radius: 10px;
+
+}
+
+td, th{
+  text-align: center;
+
+}
+
+textarea {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	width: 100%;
 }
